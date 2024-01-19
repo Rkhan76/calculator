@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="calculator">
+
+  <input type="text" class="calculator-screen" value="" disabled />
+  
+  <div class="calculator-keys">
+    
+    <button onclick="handleInputOperators(this)" id="+" type="button" class="operator" value="+">+</button>
+    <button onclick="handleInputOperators(this)" id="-" type="button" class="operator" value="-">-</button>
+    <button onclick="handleInputOperators(this)" id="*" type="button" class="operator" value="*">&times;</button>
+    <button onclick="handleInputOperators(this)" id="/" type="button" class="operator" value="/">&divide;</button>
+
+    <button onclick='handleInputValues(this)'type="button" id="7"  class="values" value="7">7</button>
+    <button onclick='handleInputValues(this)'type="button" id="8"  class="values" value="8">8</button>
+    <button onclick='handleInputValues(this)'type="button" id="9"  class="values" value="9">9</button>
+
+
+    <button onclick='handleInputValues(this)'type="button" id="4"  class="values" value="4">4</button>
+    <button onclick='handleInputValues(this)'type="button" id="5"  class="values" value="5">5</button>
+    <button onclick='handleInputValues(this)'type="button" id="6"  class="values" value="6">6</button>
+
+
+    <button onclick='handleInputValues(this)'type="button" id="1"  class="values" value="1">1</button>
+    <button onclick='handleInputValues(this)'type="button" id="2"  class="values" value="2">2</button>
+    <button onclick='handleInputValues(this)'type="button" id="3"  class="values" value="3">3</button>
+
+
+    <button onclick='handleInputValues(this)'type="button" id="0"  class="values" value="0">0</button>
+    <button onclick='handleInputValues(this)'type="button" id="."  class="decimal" value=".">.</button>
+    <button onclick='handleInputValues(this)'type="button" id="AC"   class="all-clear" value="all-clear">AC</button>
+
+    <button onclick="handleInputValues(this)" type="button" class="equal-sign operator" value="=">=</button>
+
+  </div>
+</div>
+    <script>
+        let show = document.getElementsByClassName('calculator-screen')
+        function handleInputValues(input){
+           
+            show[0].value = input.value
+            show[0].value = input.value + "+" + input.value
+            
+        }
+    </script>
+</body>
+</html>
