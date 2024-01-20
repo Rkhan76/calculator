@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="upperpart">
-            <div id="upper"></div>
+            <div id="upper" style="color: white;"></div>
             <div id="middle"></div>
             <div id="lower">
                 <div class="history click">&#x21A9;</div>
@@ -21,47 +21,50 @@
         <div class="lowerpart">
             <div onclick="handleClear(this)" class="item click operators clear" id="clear" value="C">C</div>
             <div onclick="handleParenthesis(this)" class="item click operators" value="()">()</div>
-            <div onclick="handleOperator(this)" class="item click operators" value="%">%</div>
-            <div onclick="handleOperator(this)" class="item click operators" value="/">÷</div>
+            <div onclick="handlePercentageOperator(this)" class="item click operators" value="%">%</div>
+            <div onclick="handleOperator(this)" class="item click operators" value="/">/</div>
+            <!-- ÷ -->
 
-            <div onclick="handlekeyInput(this)" class="item click" value="7">7</div>
-            <div onclick="handlekeyInput(this)" class="item click" value="8">8</div>
-            <div onclick="handlekeyInput(this)" class="item click" value="9">9</div>
-            <div onclick="handleOperator(this)" class="item click operators" value="x">x</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="7">7</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="8">8</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="9">9</div>
+            <div onclick="handleOperator(this)" class="item click operators" value="x">X</div>
 
-            <div onclick="handlekeyInput(this)" class="item click" value="4">4</div>
-            <div onclick="handlekeyInput(this)" class="item click" value="5">5</div>
-            <div onclick="handlekeyInput(this)" class="item click" value="6">6</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="4">4</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="5">5</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="6">6</div>
             <div onclick="handleOperator(this)" class="item click operators" value="">-</div>
 
-            <div onclick="handlekeyInput(this)" class="item click" value="1">1</div>
-            <div onclick="handlekeyInput(this)" class="item click" value="2">2</div>
-            <div onclick="handlekeyInput(this)" class="item click" value="3">3</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="1">1</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="2">2</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="3">3</div>
             <div onclick="handleOperator(this)" class="item click operators" value="+">+</div>
 
             <div onclick="handleMakeNegative(this)" class="item click" value="+/-">+/-</div>
-            <div onclick="handlekeyInput(this)" class="item click" value="0">0</div>
-            <div onclick="handlekeyInput(this)" class="item click" value=".">.</div>
+            <div onclick="handleKeyInput(this)" class="item click" value="0">0</div>
+            <div onclick="handleKeyInput(this)" class="item click" value=".">.</div>
             <div onclick="handleOutput(this)" class="item click equals" value="=">=</div>
         </div>
     </div>
     <script>
-        let keyInput = "";
+        let keyInputString = "";
         let keyInputArray = [];
         
         function handleClear(clear){
             console.log('handling clear');
         }
 
-        function handlekeyInput(key){
+        function handleKeyInput(key){
             keyInputArray.push(key.innerText)
-            console.log(key.innerText)
-
+            keyInputString += key.innerText
+            handleShowInputInUpperPart(keyInputString)
+           
         }
 
         function handleOperator(operator){
-            keyInputArray.push(operator.innerText)
-            console.log(operator.innerText)
+             keyInputArray.push(operator.innerText)
+            keyInputString += operator.innerText
+            handleShowInputInUpperPart(keyInputString)
         }
         function handleParenthesis(parenthesis){
             
@@ -69,16 +72,64 @@
         function handleMakeNegative(makeNegative){
             
         }
-        function handleOutput(output){
-            console.log(keyInputArray)
+    
+        function handleShowInputInUpperPart(keyInputString){
+           const inputshowbox = document.getElementById('upper')
+            inputshowbox.innerText = keyInputString;
+        }
+
+        function handlePercentageOperator(percentageOperator){
+          console.log(percentageOperator.innerText)
+        }
+
+        function handleAnswerOperator(){
+           console.log(keyInputArray)
+           console.log(keyInputString)
+           const IndexesOfMulOperator = [];
+           const IndexesOfDivOperator= [];
+           const IndexesOfAddOperator = [];
+           const IndexesOfSubOperator = [];
+           for (let i = 0; i < keyInputArray.length; i++) {
+               switch(keyInputArray[i]){
+                case "X":
+                  IndexesOfMulOperator.push(i);
+                  console.log("*");
+                  break;
+                case "/":
+                  IndexesOfDivOperator.push(i);
+                  console.log("/")
+                  break;
+                case "+":
+                  IndexesOfAddOperator.push(i);
+                  console.log('+')
+                  break;
+                case "-":
+                  IndexesOfSubOperator.push(i);
+                  console.log("-")
+                  break;
+                default:
+                  console.log(i)
+               }
+           }
+           console.log(IndexesOfMulOperator)
+           console.log(IndexesOfDivOperator)
+           console.log(IndexesOfAddOperator)
+           console.log(IndexesOfSubOperator)
+           
+           
+
+           }
+        
+
+          function handleOutput(output){
             let length = keyInputArray.length-1
            if(keyInputArray[length]=="+" || keyInputArray[length] == "-" || keyInputArray[length] == "*" || keyInputArray[length] == "/"){
                 console.log("invalid expression")
            }
+           handleAnswerOperator()
         }
 
     </script>
-    <script src="calculator.js"></script>
 </body>
 
 </html>
