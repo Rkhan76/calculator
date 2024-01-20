@@ -1,233 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
-    <title>Calculator</title>
-  </head>
-  <body>
-    <div class="calculator">
-      <input type="text" class="calculator-screen" value="" disabled />
 
-      <div class="calculator-keys">
-        <button
-          onclick="handleInputOperators(this)"
-          id="+"
-          type="button"
-          class="operator"
-          value="+"
-        >
-          +
-        </button>
-        <button
-          onclick="handleInputOperators(this)"
-          id="-"
-          type="button"
-          class="operator"
-          value="-"
-        >
-          -
-        </button>
-        <button
-          onclick="handleInputOperators(this)"
-          id="*"
-          type="button"
-          class="operator"
-          value="*"
-        >
-          &times;
-        </button>
-        <button
-          onclick="handleInputOperators(this)"
-          id="/"
-          type="button"
-          class="operator"
-          value="/"
-        >
-          &divide;
-        </button>
+<head>
+    <meta charset="UTF-8">
+    <title>🖩Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="7"
-          class="values"
-          value="7"
-        >
-          7
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="8"
-          class="values"
-          value="8"
-        >
-          8
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="9"
-          class="values"
-          value="9"
-        >
-          9
-        </button>
+<body>
+    <div class="container">
+        <div class="upperpart">
+            <div id="upper"></div>
+            <div id="middle"></div>
+            <div id="lower">
+                <div class="history click">&#x21A9;</div>
+                <div class="backspace click">&#x232B;</div>
+            </div>
+        </div>
+        <hr>
+        <div class="lowerpart">
+            <div onclick="handleClear(this)" class="item click operators clear" id="clear" value="C">C</div>
+            <div onclick="handleParenthesis(this)" class="item click operators" value="()">()</div>
+            <div onclick="handleOperator(this)" class="item click operators" value="%">%</div>
+            <div onclick="handleOperator(this)" class="item click operators" value="/">÷</div>
 
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="4"
-          class="values"
-          value="4"
-        >
-          4
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="5"
-          class="values"
-          value="5"
-        >
-          5
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="6"
-          class="values"
-          value="6"
-        >
-          6
-        </button>
+            <div onclick="handlekeyInput(this)" class="item click" value="7">7</div>
+            <div onclick="handlekeyInput(this)" class="item click" value="8">8</div>
+            <div onclick="handlekeyInput(this)" class="item click" value="9">9</div>
+            <div onclick="handleOperator(this)" class="item click operators" value="x">x</div>
 
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="1"
-          class="values"
-          value="1"
-        >
-          1
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="2"
-          class="values"
-          value="2"
-        >
-          2
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="3"
-          class="values"
-          value="3"
-        >
-          3
-        </button>
+            <div onclick="handlekeyInput(this)" class="item click" value="4">4</div>
+            <div onclick="handlekeyInput(this)" class="item click" value="5">5</div>
+            <div onclick="handlekeyInput(this)" class="item click" value="6">6</div>
+            <div onclick="handleOperator(this)" class="item click operators" value="">-</div>
 
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="0"
-          class="values"
-          value="0"
-        >
-          0
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="."
-          class="decimal"
-          value="."
-        >
-          .
-        </button>
-        <button
-          onclick="handleInputValues(this)"
-          type="button"
-          id="AC"
-          class="all-clear"
-          value="all-clear"
-        >
-          AC
-        </button>
+            <div onclick="handlekeyInput(this)" class="item click" value="1">1</div>
+            <div onclick="handlekeyInput(this)" class="item click" value="2">2</div>
+            <div onclick="handlekeyInput(this)" class="item click" value="3">3</div>
+            <div onclick="handleOperator(this)" class="item click operators" value="+">+</div>
 
-        <button
-          onclick="finalAnswer(this)"
-          type="button"
-          class="equal-sign operator"
-          value="="
-        >
-          =
-        </button>
-      </div>
+            <div onclick="handleMakeNegative(this)" class="item click" value="+/-">+/-</div>
+            <div onclick="handlekeyInput(this)" class="item click" value="0">0</div>
+            <div onclick="handlekeyInput(this)" class="item click" value=".">.</div>
+            <div onclick="handleOutput(this)" class="item click equals" value="=">=</div>
+        </div>
     </div>
     <script>
-      let show = document.getElementsByClassName('calculator-screen')
-      show[0].value = ''
-      const inputArray = []
-      let inputValueToShow = ''
-
-      function showInputWithOperation(input) {
-        inputArray.push(input.value)
-        inputValueToShow = ''
-        for (let i = 0; i < inputArray.length; i++) {
-          inputValueToShow = inputValueToShow + inputArray[i]
-        }
-        return inputValueToShow
-      }
-
-      function findAllIndices() {
-        const plusArray = []
-        const minusArray = []
-        const multiplyArray = []
-        const divideArray = []
-
-        for (let i = 0; i < inputArray.length; i++) {
-          switch (inputArray[i]) {
-            case "+":
-              plusArray.push(i)
-              break
-            case "-":
-              minusArray.push(i)
-              break
-             case "*":
-              multiplyArray.push(i)
-              break
-               case "/":
-              divideArray.push(i)
-              break
-            default:
-            
-          }
-        }
-          console.log(plusArray)
-          console.log(minusArray)
-          console.log(multiplyArray)
-          console.log(divideArray)
-
+        let keyInput = "";
+        let keyInputArray = [];
         
-      }
+        function handleClear(clear){
+            console.log('handling clear');
+        }
 
-      function finalAnswer() {
-        findAllIndices()
-      }
+        function handlekeyInput(key){
+            keyInputArray.push(key.innerText)
+            console.log(key.innerText)
 
-      function handleInputValues(input) {
-        show[0].value = showInputWithOperation(input)
-      }
+        }
 
-      function handleInputOperators(input) {
-        show[0].value = showInputWithOperation(input)
-      }
+        function handleOperator(operator){
+            keyInputArray.push(operator.innerText)
+            console.log(operator.innerText)
+        }
+        function handleParenthesis(parenthesis){
+            
+        }
+        function handleMakeNegative(makeNegative){
+            
+        }
+        function handleOutput(output){
+            console.log(keyInputArray)
+            let length = keyInputArray.length-1
+           if(keyInputArray[length]=="+" || keyInputArray[length] == "-" || keyInputArray[length] == "*" || keyInputArray[length] == "/"){
+                console.log("invalid expression")
+           }
+        }
+
     </script>
-  </body>
+    <script src="calculator.js"></script>
+</body>
+
 </html>
