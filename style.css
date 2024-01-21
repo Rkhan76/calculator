@@ -78,7 +78,9 @@ hr{
 }
 #middle{
     height: 90px;
+    color: white;
 }
+
 #lower{
     display: flex;
     justify-content: space-around;
